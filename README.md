@@ -1,6 +1,6 @@
-# second_app
+# Transaction List Application
 
-A new Flutter project.
+Flutter project that can list each transaction .
 
 ## Getting Started
 
