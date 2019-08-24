@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './transaction.dart';
 
@@ -71,11 +72,11 @@ class MyHomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    elevation: 10,
+                    elevation: 5,
                     child: Row(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(15),
                           margin: EdgeInsets.symmetric(
                             vertical: 10,
                             horizontal: 20,
@@ -87,12 +88,12 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            tx.amount.toString(),
+                            // String Interpolation
+                            '\$${tx.amount}',
                             style: TextStyle(
-                              fontStyle: FontStyle.italic,
                               color: Colors.purple,
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 18,
                             ),
                           ),
                         ),
@@ -107,7 +108,7 @@ class MyHomePage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                tx.date.toString(),
+                                DateFormat().format(tx.date),
                                 style: TextStyle(color: Colors.grey),
                               ),
                             ],
