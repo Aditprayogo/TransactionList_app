@@ -19,16 +19,11 @@ class NewTrasaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              // onChanged: (value) {
-              //   titleInput = value;
-              // },
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
-              // onChanged: (value) {
-              //   textAmount = value;
-              // },
+              maxLength: 5,
             ),
             // BUtton add transaction
             Container(

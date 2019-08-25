@@ -31,31 +31,32 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter App'),
-          backgroundColor: Colors.orangeAccent,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            // mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              // Cart
-              Container(
-                width: double.infinity,
-                child: Card(
-                  color: Colors.greenAccent,
-                  elevation: 10,
-                  child: Text(
-                    'CHART!',
-                    textAlign: TextAlign.center,
-                  ),
+      appBar: AppBar(
+        title: Text('Flutter App'),
+        backgroundColor: Colors.orangeAccent,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          // mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            // Cart
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.greenAccent,
+                elevation: 10,
+                child: Text(
+                  'CHART!',
+                  textAlign: TextAlign.center,
                 ),
               ),
-              // end cart
-              UserTransactions(),
-            ],
-          ),
-        ));
+            ),
+            // end cart
+            UserTransactions(),
+          ],
+        ),
+      ),
+    );
   }
 }
