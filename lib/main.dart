@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import './models/transaction.dart';
 
 import './widgets/transaction_list.dart';
+import './widgets/new_transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,45 +50,6 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              // Text Input
-              Card(
-                elevation: 5,
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    children: <Widget>[
-                      TextField(
-                        decoration: InputDecoration(labelText: 'Title'),
-                        controller: titleController,
-                        // onChanged: (value) {
-                        //   titleInput = value;
-                        // },
-                      ),
-                      TextField(
-                        decoration: InputDecoration(labelText: 'Amount'),
-                        controller: amountController,
-                        // onChanged: (value) {
-                        //   textAmount = value;
-                        // },
-                      ),
-                      // BUtton add transaction
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          color: Colors.blueAccent,
-                          child: Text('Add Transaction'),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Widget Card untuk transaction list data
-              TransactionList(),
             ],
           ),
         ));
