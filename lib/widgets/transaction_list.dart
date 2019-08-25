@@ -4,27 +4,10 @@ import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
 
-class TransactionList extends StatefulWidget {
-  @override
-  _TransactionListState createState() => _TransactionListState();
-}
+class TransactionList extends StatelessWidget {
+  final List<Transaction> transactions;
 
-class _TransactionListState extends State<TransactionList> {
-  // Tell dart of transaction will hold value of Transaction
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 'a1',
-      title: 'Pembelian Jaket Flutter',
-      amount: 12.5,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'a2',
-      title: 'Beli Course Vue',
-      amount: 13.5,
-      date: DateTime.now(),
-    ),
-  ];
+  TransactionList(this.transactions);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +15,7 @@ class _TransactionListState extends State<TransactionList> {
       margin: EdgeInsets.all(10),
       child: Column(
         // map transform to list of objct to list of widgets
-        children: _userTransactions.map((tx) {
+        children: transactions.map((tx) {
           return Card(
             margin: EdgeInsets.symmetric(
               vertical: 10,

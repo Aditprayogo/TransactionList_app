@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 
 import './models/transaction.dart';
 
-import './widgets/transaction_list.dart';
+import './widgets/user_transaction.dart';
+
 import './widgets/new_transaction.dart';
 
 void main() => runApp(MyApp());
@@ -39,6 +40,7 @@ class MyHomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             // mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              // Cart
               Container(
                 width: double.infinity,
                 child: Card(
@@ -50,6 +52,8 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              // end cart
+              UserTransactions(),
             ],
           ),
         ));
