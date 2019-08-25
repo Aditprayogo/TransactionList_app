@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import './transaction.dart';
+import './models/transaction.dart';
+
+import './widgets/transaction_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,112 +19,77 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  // Tell dart of transaction will hold value of Transaction
-  final List<Transaction> transaction = [
-    Transaction(
-      id: 'a1',
-      title: 'Pembelian Jaket Flutter',
-      amount: 12.5,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'a2',
-      title: 'Beli Course Vue',
-      amount: 13.5,
-      date: DateTime.now(),
-    ),
-  ];
+  // String titleInput;
+  // String textAmount;
+
+  // build in flutter mechanism
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter App'),
-        backgroundColor: Colors.orangeAccent,
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(30),
-            child: Card(
-              color: Colors.greenAccent,
-              elevation: 10,
-              child: Text(
-                'CHART!',
-                textAlign: TextAlign.center,
+        appBar: AppBar(
+          title: Text('Flutter App'),
+          backgroundColor: Colors.orangeAccent,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.greenAccent,
+                  elevation: 10,
+                  child: Text(
+                    'CHART!',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
-            ),
-          ),
-          // map transform to list of objct to list of widgets
-          Container(
-            margin: EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              // map transform to list of objct to list of widgets
-              children: transaction.map(
-                (tx) {
-                  return Card(
-                    margin: EdgeInsets.symmetric(
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    elevation: 5,
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(15),
-                          margin: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 20,
+              // Text Input
+              Card(
+                elevation: 5,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: <Widget>[
+                      TextField(
+                        decoration: InputDecoration(labelText: 'Title'),
+                        controller: titleController,
+                        // onChanged: (value) {
+                        //   titleInput = value;
+                        // },
+                      ),
+                      TextField(
+                        decoration: InputDecoration(labelText: 'Amount'),
+                        controller: amountController,
+                        // onChanged: (value) {
+                        //   textAmount = value;
+                        // },
+                      ),
+                      // BUtton add transaction
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
                           ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.purple,
-                              width: 2,
-                            ),
-                          ),
-                          child: Text(
-                            // String Interpolation
-                            '\$${tx.amount}',
-                            style: TextStyle(
-                              color: Colors.purple,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
+                          color: Colors.blueAccent,
+                          child: Text('Add Transaction'),
+                          onPressed: () {},
                         ),
-                        Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                tx.title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                DateFormat().format(tx.date),
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ).toList(),
-            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Widget Card untuk transaction list data
+              TransactionList(),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
