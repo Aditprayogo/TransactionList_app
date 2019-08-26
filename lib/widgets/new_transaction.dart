@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewTrasaction extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+class NewTrasaction extends StatefulWidget {
   final Function addTx;
 
   NewTrasaction(this.addTx);
+
+  @override
+  _NewTrasactionState createState() => _NewTrasactionState();
+}
+
+class _NewTrasactionState extends State<NewTrasaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitData() {
     final enteredTitle = titleController.text;
@@ -16,7 +23,7 @@ class NewTrasaction extends StatelessWidget {
       return;
     }
 
-    addTx(
+    widget.addTx(
       enteredTitle,
       enteredAmount,
     );
@@ -34,13 +41,13 @@ class NewTrasaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: (_) => submitData,
+              onSubmitted: (_) => submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData,
+              onSubmitted: (_) => submitData(),
             ),
             // BUtton add transaction
             Container(
