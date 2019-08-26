@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class NewTrasaction extends StatefulWidget {
   final Function addTx;
 
+  // FUnction untuk menambah data
   NewTrasaction(this.addTx);
 
   @override
@@ -23,10 +24,17 @@ class _NewTrasactionState extends State<NewTrasaction> {
       return;
     }
 
+    // Sepcial property from flutter
+    // to access the properties of widget inside state class
+    // widget
     widget.addTx(
       enteredTitle,
       enteredAmount,
     );
+
+    // pop untuk close display screen
+    // context adalah special property that can give you access in class itself
+    Navigator.of(context).pop();
   }
 
   @override
@@ -57,7 +65,12 @@ class _NewTrasactionState extends State<NewTrasaction> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 color: Colors.blueAccent,
-                child: Text('Add Transaction'),
+                child: Text(
+                  'Add Transaction',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
                 onPressed: submitData,
               ),
             ),

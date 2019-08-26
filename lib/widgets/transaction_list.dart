@@ -15,6 +15,7 @@ class TransactionList extends StatelessWidget {
       height: 280,
       padding: EdgeInsets.all(10),
       child: ListView.builder(
+        itemCount: transactions.length,
         itemBuilder: (ctx, index) {
           return Card(
             margin: EdgeInsets.symmetric(
@@ -23,7 +24,7 @@ class TransactionList extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            elevation: 2,
+            elevation: 5,
             child: Row(
               children: <Widget>[
                 Container(
@@ -33,8 +34,9 @@ class TransactionList extends StatelessWidget {
                     horizontal: 20,
                   ),
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: Colors.purple,
+                      color: Theme.of(context).primaryColor,
                       width: 2,
                     ),
                   ),
@@ -43,7 +45,7 @@ class TransactionList extends StatelessWidget {
                     // String Interpolation
                     '\$${transactions[index].amount.toStringAsFixed(2)}',
                     style: TextStyle(
-                      color: Colors.purple,
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -72,8 +74,6 @@ class TransactionList extends StatelessWidget {
             ),
           );
         },
-        itemCount: transactions.length,
-        // map transform to list of objct to list of wid
       ),
     );
   }

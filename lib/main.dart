@@ -13,8 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FLutter App',
+      title: 'Transaction List',
       home: MyHomePage(),
+      theme: ThemeData(
+        // Most important things
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+      ),
       color: Colors.blueAccent,
       debugShowCheckedModeBanner: false,
     );
@@ -77,8 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
-        backgroundColor: Colors.orangeAccent,
+        title: Text('Transaction List'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -86,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _startAddNewTransaction(context),
@@ -103,12 +107,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.greenAccent,
                 elevation: 10,
                 child: Text(
-                  'CHART!',
+                  'ITIL KUDA!',
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
             // end cart
+            // User Transaction card
             TransactionList(_userTransactions),
           ],
         ),
