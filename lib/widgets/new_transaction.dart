@@ -7,10 +7,18 @@ class NewTrasaction extends StatelessWidget {
 
   NewTrasaction(this.addTx);
 
-  void submitData(String value) {
+  void submitData() {
+    final enteredTitle = titleController.text;
+    final enteredAmount = double.parse(amountController.text);
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+      // return berarti memberhentikan sebuah function
+      return;
+    }
+
     addTx(
-      titleController.text,
-      double.parse(amountController.text),
+      enteredTitle,
+      enteredAmount,
     );
   }
 
@@ -26,13 +34,13 @@ class NewTrasaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: submitData,
+              onSubmitted: (_) => submitData,
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: submitData,
+              onSubmitted: (_) => submitData,
             ),
             // BUtton add transaction
             Container(
@@ -43,12 +51,7 @@ class NewTrasaction extends StatelessWidget {
                 ),
                 color: Colors.blueAccent,
                 child: Text('Add Transaction'),
-                onPressed: () {
-                  addTx(
-                    titleController.text,
-                    double.parse(amountController.text),
-                  );
-                },
+                onPressed: submitData,
               ),
             ),
           ],
