@@ -47,6 +47,7 @@ class TransactionList extends StatelessWidget {
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'QuickSand',
                       fontSize: 18,
                     ),
                   ),
@@ -58,9 +59,7 @@ class TransactionList extends StatelessWidget {
                       // Text Untuk title
                       Text(
                         transactions[index].title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.title,
                       ),
                       // Text Untuk Date
                       Text(

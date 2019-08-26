@@ -19,6 +19,26 @@ class MyApp extends StatelessWidget {
         // Most important things
         primarySwatch: Colors.purple,
         accentColor: Colors.amber,
+        // Default FOnt family
+        fontFamily: 'QuickSand',
+        // Text THeme
+        textTheme: ThemeData.light().textTheme.copyWith(
+              title: TextStyle(
+                fontSize: 15,
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        // App bar theme
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontFamily: 'QuickSand',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
       ),
       color: Colors.blueAccent,
       debugShowCheckedModeBanner: false,
@@ -82,7 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transaction List'),
+        title: Text(
+          'Transaction List',
+          style: TextStyle(
+            fontFamily: 'Open Sans',
+          ),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
