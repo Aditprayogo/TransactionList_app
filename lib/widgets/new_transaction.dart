@@ -7,6 +7,13 @@ class NewTrasaction extends StatelessWidget {
 
   NewTrasaction(this.addTx);
 
+  void submitData(String value) {
+    addTx(
+      titleController.text,
+      double.parse(amountController.text),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Text Input
@@ -19,11 +26,13 @@ class NewTrasaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
+              onSubmitted: submitData,
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
-              maxLength: 5,
+              keyboardType: TextInputType.number,
+              onSubmitted: submitData,
             ),
             // BUtton add transaction
             Container(
