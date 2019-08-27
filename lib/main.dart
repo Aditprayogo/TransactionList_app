@@ -7,6 +7,8 @@ import './widgets/transaction_list.dart';
 
 import './widgets/new_transaction.dart';
 
+import './widgets/chart.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -71,6 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
       title: txTitle,
@@ -128,14 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // Cart
             Container(
               width: double.infinity,
-              child: Card(
-                color: Colors.greenAccent,
-                elevation: 10,
-                child: Text(
-                  'ITIL KUDA!',
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              child: Chart(_recentTransactions),
             ),
             // end cart
             // User Transaction card
