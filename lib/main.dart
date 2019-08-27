@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // Text THeme
         textTheme: ThemeData.light().textTheme.copyWith(
               title: TextStyle(
-                fontSize: 15,
+                fontSize: 18,
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
               ),
@@ -57,18 +57,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 'a1',
-      title: 'Pembelian Jaket Flutter',
-      amount: 12.5,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'a2',
-      title: 'Beli Course Vue',
-      amount: 13.5,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 'a1',
+    //   title: 'Pembelian Jaket Flutter',
+    //   amount: 12.5,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 'a2',
+    //   title: 'Beli Course Vue',
+    //   amount: 13.5,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
