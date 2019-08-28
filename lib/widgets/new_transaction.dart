@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+
 class NewTrasaction extends StatefulWidget {
   final Function addTx;
 
@@ -11,15 +13,21 @@ class NewTrasaction extends StatefulWidget {
 }
 
 class _NewTrasactionState extends State<NewTrasaction> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
 
-  final amountController = TextEditingController();
+  final _amountController = TextEditingController();
+
+  DateTime _selectedData;
 
   void _submitData() {
-    final enteredTitle = titleController.text;
-    final enteredAmount = double.parse(amountController.text);
+    if (_amountController.text.isEmpty) {
+      return;
+    }
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    final enteredTitle = _titleController.text;
+    final enteredAmount = double.parse(_amountController.text);
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedData == null) {
       // return berarti memberhentikan sebuah function
       return;
     }
@@ -27,24 +35,34 @@ class _NewTrasactionState extends State<NewTrasaction> {
     // Sepcial property from flutter
     // to access the properties of widget inside state class
     // widget
-    widget.addTx(
-      enteredTitle,
-      enteredAmount,
-    );
+    widget.addTx(enteredTitle, enteredAmount, _selectedData);
 
     // pop untuk close display screen
     // context adalah special property that can give you access in class itself
+    // setelah di submit
     Navigator.of(context).pop();
   }
+  // end submit data
 
   void _presentDatePicker() {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2019),
-      lastDate: DateTime.now(),
-    );
+      lastDate: DateTime(3000),
+
+      //then is a method is executed when the user choose a value/pick a date
+    ).then((pickedData) {
+      if (pickedData == null) {
+        return;
+      }
+
+      setState(() {
+        _selectedData = pickedData;
+      });
+    });
   }
+  // end present date picker
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +75,12 @@ class _NewTrasactionState extends State<NewTrasaction> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _submitData(),
             ),
@@ -71,7 +89,13 @@ class _NewTrasactionState extends State<NewTrasaction> {
               height: 70,
               child: Row(
                 children: <Widget>[
-                  Text('No Date Choosen'),
+                  Expanded(
+                    child: Text(
+                      _selectedData == null
+                          ? 'No Date Choosen'
+                          : 'Picked Date : ${DateFormat.yMMMd().format(_selectedData)}',
+                    ),
+                  ),
                   FlatButton(
                     child: Text(
                       'Choosen Date',
