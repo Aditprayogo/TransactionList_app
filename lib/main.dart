@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
       theme: ThemeData(
         // Most important things
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.red,
         accentColor: Colors.amber,
         // Default FOnt family
         fontFamily: 'QuickSand',
@@ -49,10 +49,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  // String titleInput;
-  // String textAmount;
-
-  // build in flutter mechanism
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -137,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _startAddNewTransaction(context),
@@ -146,13 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // Cart
             Container(
               width: double.infinity,
               child: Chart(_recentTransactions),
             ),
-            // end cart
-            // User Transaction card
             TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
