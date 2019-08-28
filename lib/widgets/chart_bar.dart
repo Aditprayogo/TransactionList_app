@@ -12,8 +12,11 @@ class ChartBar extends StatelessWidget {
     return Column(
       children: <Widget>[
         // magic widget dari flutter agar text tidak makan tempat
-        FittedBox(
-          child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
+        Container(
+          height: 20,
+          child: FittedBox(
+            child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
+          ),
         ),
         SizedBox(
           height: 4,
