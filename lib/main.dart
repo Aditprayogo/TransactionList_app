@@ -105,25 +105,18 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     // Modal
     showModalBottomSheet(
-      isScrollControlled: true,
+      isScrollControlled: false,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
       context: ctx,
       builder: (_) {
-        return DraggableScrollableSheet(
-          initialChildSize: 1,
-          maxChildSize: 1,
-          minChildSize: 0.25,
-          builder: (ctx, scrollController) {
-            return GestureDetector(
-              onTap: () {},
-              child: Container(
-                child: NewTrasaction(_addNewTransaction),
-              ),
-              behavior: HitTestBehavior.opaque,
-            );
-          },
+        return GestureDetector(
+          onTap: () {},
+          child: Container(
+            child: NewTrasaction(_addNewTransaction),
+          ),
+          behavior: HitTestBehavior.opaque,
         );
       },
     );
@@ -185,6 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             if (isLandScape)
               _showChart
+                  // Jika di switch menjadi true
                   ? Column(
                       children: <Widget>[
                         Container(
@@ -199,6 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     )
+                  // end column
                   : txListWidget,
             if (!isLandScape)
               Container(
