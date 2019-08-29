@@ -13,7 +13,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.54,
+      height: 350,
       padding: EdgeInsets.all(10),
       child: transactions.isEmpty
           ? Column(
@@ -29,9 +29,11 @@ class TransactionList extends StatelessWidget {
                     style: Theme.of(context).textTheme.title,
                   ),
                 ),
-                Image.asset(
-                  'assets/images/waiting.png',
-                  width: 70,
+                Container(
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    width: 70,
+                  ),
                 ),
               ],
             )
@@ -43,7 +45,7 @@ class TransactionList extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
                   child: ListTile(
                     leading: CircleAvatar(
                       radius: 30,

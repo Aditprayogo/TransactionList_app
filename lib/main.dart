@@ -70,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   bool _showChart = false;
+  bool isScrollControlled = false;
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -104,15 +105,25 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     // Modal
     showModalBottomSheet(
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
       context: ctx,
       builder: (_) {
-        return GestureDetector(
-          onTap: () {},
-          child: NewTrasaction(_addNewTransaction),
-          behavior: HitTestBehavior.opaque,
+        return DraggableScrollableSheet(
+          initialChildSize: 1,
+          maxChildSize: 1,
+          minChildSize: 0.25,
+          builder: (ctx, scrollController) {
+            return GestureDetector(
+              onTap: () {},
+              child: Container(
+                child: NewTrasaction(_addNewTransaction),
+              ),
+              behavior: HitTestBehavior.opaque,
+            );
+          },
         );
       },
     );
@@ -120,21 +131,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Transaction List',
-          style: TextStyle(
-            fontFamily: 'Open Sans',
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          ),
-        ],
+    final isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final txListWidget = Container(
+      child: TransactionList(
+        _userTransactions,
+        _deleteTransaction,
       ),
+    );
+
+    final appBar = AppBar(
+      title: Text(
+        'Transaction List',
+        style: TextStyle(
+          fontFamily: 'Open Sans',
+        ),
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
+      ],
+    );
+
+    return Scaffold(
+      appBar: appBar,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -144,40 +167,45 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Show Card'),
-                Switch(
-                  activeColor: Theme.of(context).primaryColor,
-                  value: _showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChart = val;
-                    });
-                  },
-                )
-              ],
-            ),
-            _showChart
-                ? Column(
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        child: Chart(_recentTransactions),
-                      ),
-                      Container(
-                        child: TransactionList(
-                            _userTransactions, _deleteTransaction),
-                      ),
-                    ],
+            if (isLandScape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Show Card'),
+                  Switch(
+                    activeColor: Theme.of(context).primaryColor,
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
                   )
-                : Container(
-                    child: TransactionList(
-                      _userTransactions,
-                      _deleteTransaction,
-                    ),
-                  ),
+                ],
+              ),
+            if (isLandScape)
+              _showChart
+                  ? Column(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          child: Chart(_recentTransactions),
+                        ),
+                        Container(
+                          child: TransactionList(
+                            _userTransactions,
+                            _deleteTransaction,
+                          ),
+                        ),
+                      ],
+                    )
+                  : txListWidget,
+            if (!isLandScape)
+              Container(
+                width: double.infinity,
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandScape) txListWidget,
           ],
         ),
       ),
