@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
 
+import '../widgets/transaction_item.dart';
+
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
 
@@ -40,44 +42,9 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemCount: transactions.length,
               itemBuilder: (ctx, index) {
-                return Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: FittedBox(
-                          child: Text('\$${transactions[index].amount}'),
-                        ),
-                      ),
-                    ),
-                    // midle element
-                    title: Text(
-                      transactions[index].title,
-                      style: Theme.of(context).textTheme.title,
-                    ),
-                    // ngasih space untuk title
-                    subtitle: Text(
-                      DateFormat.yMMMd().format(transactions[index].date),
-                    ),
-                    trailing: MediaQuery.of(context).size.width > 360
-                        ? FlatButton.icon(
-                            icon: Icon(Icons.delete),
-                            label: Text('Delete'),
-                            textColor: Theme.of(context).errorColor,
-                            onPressed: () => deleteTx(transactions[index].id),
-                          )
-                        : IconButton(
-                            color: Theme.of(context).primaryColor,
-                            icon: Icon(Icons.delete),
-                            onPressed: () => deleteTx(transactions[index].id),
-                          ),
-                  ),
+                return TransactionItem(
+                  transaction: transactions[index],
+                  deleteTx: deleteTx,
                 );
               },
             ),

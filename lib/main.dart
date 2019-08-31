@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,37 +17,47 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Transaction List',
-      home: MyHomePage(),
-      theme: ThemeData(
-        // Most important things
-        primarySwatch: Colors.red,
-        accentColor: Colors.amber,
-        // Default FOnt family
-        fontFamily: 'QuickSand',
-        // Text THeme
-        textTheme: ThemeData.light().textTheme.copyWith(
-              title: TextStyle(
-                fontSize: 18,
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.bold,
+    return Platform.isIOS
+        ? CupertinoApp(
+            title: 'Transaction List',
+            home: MyHomePage(),
+            theme: CupertinoThemeData(
+              primaryColor: Colors.red,
+            ),
+            color: Colors.blueAccent,
+            debugShowCheckedModeBanner: false,
+          )
+        : MaterialApp(
+            title: 'Transaction List',
+            home: MyHomePage(),
+            theme: ThemeData(
+              // Most important things
+              primarySwatch: Colors.red,
+              accentColor: Colors.amber,
+              // Default FOnt family
+              fontFamily: 'QuickSand',
+              // Text THeme
+              textTheme: ThemeData.light().textTheme.copyWith(
+                    title: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'OpenSans',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+              // App bar theme
+              appBarTheme: AppBarTheme(
+                textTheme: ThemeData.light().textTheme.copyWith(
+                      title: TextStyle(
+                        fontFamily: 'QuickSand',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
               ),
             ),
-        // App bar theme
-        appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-                  fontFamily: 'QuickSand',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-        ),
-      ),
-      color: Colors.blueAccent,
-      debugShowCheckedModeBanner: false,
-    );
+            color: Colors.blueAccent,
+            debugShowCheckedModeBanner: false,
+          );
   }
 }
 
@@ -127,13 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
-    final txListWidget = Container(
-      child: TransactionList(
-        _userTransactions,
-        _deleteTransaction,
-      ),
-    );
-
     final appBar = AppBar(
       title: Text(
         'Transaction List',
@@ -147,6 +153,13 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () => _startAddNewTransaction(context),
         ),
       ],
+    );
+
+    final txListWidget = Container(
+      child: TransactionList(
+        _userTransactions,
+        _deleteTransaction,
+      ),
     );
 
     return Scaffold(
@@ -165,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text('Show Card'),
-                  Switch(
+                  Switch.adaptive(
                     activeColor: Theme.of(context).primaryColor,
                     value: _showChart,
                     onChanged: (val) {
